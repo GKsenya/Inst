@@ -4,6 +4,7 @@ import InstagramV01.Interface.ResourceUserReader;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,14 @@ public class DBUserReader implements ResourceUserReader {
                 postList.add(post);
                 this.userPost.add(new UserPost(user, postList));
             }
-            dbConnector.closeConnection();
         }catch (Exception ex){
             System.out.println("Всё херня, давай по-новой!");
+        } finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return this.userPost;
     }
@@ -48,10 +54,15 @@ public class DBUserReader implements ResourceUserReader {
                 postList.add(post);
             }
             this.userPost.add(new UserPost(user, postList));
-            dbConnector.closeConnection();
         }catch (Exception ex){
             System.out.println("Всё херня, давай по-новой!");
+        }finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
         }
+    }
         return this.userPost;
     }
     @Override

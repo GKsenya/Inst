@@ -2,6 +2,7 @@ package InstagramV01.WorkClasses;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBUserSignIn {
@@ -19,6 +20,11 @@ public class DBUserSignIn {
             dbConnector.closeConnection();
             return new User(login, name, id);
         }catch (Exception ex){
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             System.out.println("Всё херня, давай по-новой!");
         }
         return null;

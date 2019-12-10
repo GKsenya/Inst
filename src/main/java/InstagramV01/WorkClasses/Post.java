@@ -1,6 +1,8 @@
 package InstagramV01.WorkClasses;
 
 
+import java.util.Arrays;
+
 public class Post {
     private String date;
     private String comment;
@@ -39,8 +41,8 @@ public class Post {
         return "Post{" +
                 "date='" + date + '\'' +
                 ", comment='" + comment + '\'' +
-                ", img='" + img + '\'' +
+                ", img=" + Arrays.toString(img) +
+                ", imgIn='" + imgIn + '\'' +
                 '}';
     }
-
 }

@@ -13,7 +13,7 @@
 <html>
 <head>
     <title>Instagram V0.1</title>
-    <link rel="stylesheet" type="text/css" href="Inst.css">
+    <link rel="stylesheet" type="text/css" href="css/Inst.css">
     <style type="text/css"></style>
 </head>
 <body>

@@ -1,0 +1,31 @@
+html {
+    background: url("back.jpg") fixed;
+}
+body{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+}
+.user{
+    background-color: palevioletred;
+    height: 10%;
+    border-radius: 30px;
+}
+.user h3{
+    size: 40px;
+    color: #ffffff;
+    font-weight: bolder;
+    margin-left: 50%;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+.user button{
+    border-radius: 30px;
+    size: 20px;
+    background-color: #ffffff;
+    color: maroon;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
