@@ -13,7 +13,11 @@ import java.io.IOException;
 public class AllPostsServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        int id = Integer.parseInt(req.getParameter("id"));
+
         ResourceUserReader rur = new DBUserReader();
+        req.setAttribute("user", rur.getUserById(id));
         req.setAttribute("posts", rur.readAllPosts());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("userPosts.jsp");
         requestDispatcher.forward(req, resp);

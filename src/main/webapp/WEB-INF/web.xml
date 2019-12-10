@@ -5,6 +5,11 @@
          version="3.1">
 
   <display-name>Archetype Created Web Application</display-name>
+
+  <welcome-file-list>
+    <welcome-file>signin.jsp</welcome-file>
+  </welcome-file-list>
+
   <servlet>
     <servlet-name>posts</servlet-name>
     <servlet-class>InstagramV01.Servlet.AllPostsServlet</servlet-class>
@@ -24,4 +29,25 @@
     <servlet-name>newPost</servlet-name>
     <url-pattern>/newPost</url-pattern>
   </servlet-mapping>
+
+  <!-- Sign Up servlet -->
+  <servlet>
+    <servlet-name>signUp</servlet-name>
+    <servlet-class>InstagramV01.Servlet.SignUpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>signUp</servlet-name>
+    <url-pattern>/signUp</url-pattern>
+  </servlet-mapping>
+
+  <!-- Sign In servlet -->
+  <servlet>
+    <servlet-name>signIn</servlet-name>
+    <servlet-class>InstagramV01.Servlet.SignInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>signIn</servlet-name>
+    <url-pattern>/signIn</url-pattern>
+  </servlet-mapping>
 </web-app>
+

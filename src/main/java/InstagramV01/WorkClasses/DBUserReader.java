@@ -54,4 +54,19 @@ public class DBUserReader implements ResourceUserReader {
         }
         return this.userPost;
     }
+    @Override
+    public User getUserById(int id){
+        DBConnector dbConnector = new DBConnector();
+        Connection con = dbConnector.createConnection();
+        User user = null;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs1 = stmt.executeQuery("SELECT * FROM `Inst_users` WHERE `id` = " + id);
+            rs1.next();
+            user = new User(rs1.getString("user_login"), rs1.getString("user_name"), rs1.getInt("id"));
+        }catch (Exception ex){
+            System.out.println("Всё херня, давай по-новой!");
+        }
+        return user;
+    }
 }

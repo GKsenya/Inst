@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
-<%@ page import="InstagramV01.WorkClasses.Post" %>
-<%@ page import="InstagramV01.WorkClasses.UserPost" %><%--
+<%@ page import="InstagramV01.WorkClasses.UserPost" %>
+<%@ page import="javax.swing.*" %>
+<%@ page import="java.awt.*" %>
+<%@ page import="InstagramV01.WorkClasses.User" %><%--
   Created by IntelliJ IDEA.
   User: Ксеня
   Date: 07.12.2019
@@ -16,17 +18,25 @@
 </head>
 <body>
 <div>
+    <div>
+        <%
+            User user = (User) request.getAttribute("user");
+            out.print("<p>" + user.getName() + "</p>");
+            request.setAttribute("id", user.getId());
+        %>
+        <button onclick="location.href='newPost.jsp?id=${id}'">загрузить пост</button><br><br>
+        <button onclick="location.href='signin.jsp'">Выйти</button>
+    </div>
     <table>
         <%
-            try{
-                for(UserPost userPost: (List<UserPost>) request.getAttribute("posts")){
-                    out.print("<tr><td>"+userPost.getUser().getName()+ "     " + userPost.getPosts().get(0).getDate() +"</td><td></td></tr>");
-                    out.println("<tr><td><img src ='" + userPost.getPosts().get(0).getImg() + "'></td><td>"
-                            + userPost.getPosts().get(0).getComment() + "</td></tr>");
-                    out.print(userPost.getPosts().get(0).getImg());
-                }
-            }catch (Exception ex){
-                ex.printStackTrace();
+            for (UserPost userPost : (List<UserPost>) request.getAttribute("posts")) {
+                byte[] imageBytes = userPost.getPosts().get(0).getImg();
+                ImageIcon imageIcon = new ImageIcon(imageBytes);
+                Image image = imageIcon.getImage();
+                out.print("<tr><td>" + userPost.getUser().getName() + "     "
+                        + userPost.getPosts().get(0).getDate() + "</td><td></td></tr>");
+                out.println("<tr><td><img src ='" + image + "'></td><td>"
+                        + userPost.getPosts().get(0).getComment() + "</td></tr>");
             }
         %>
     </table>
