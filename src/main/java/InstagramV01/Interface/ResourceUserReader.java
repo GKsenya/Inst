@@ -9,7 +9,7 @@ public interface ResourceUserReader {
 
     List<UserPost> readAllPosts();
 
-    List<UserPost> readPostsById(int id);
+    UserPost readPostsById(int id);
 
     User getUserById(int id);
 }

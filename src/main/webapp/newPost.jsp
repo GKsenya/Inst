@@ -15,23 +15,30 @@
 </head>
 <body>
 <div class="user">
-    <table class="user">
-        <%
-            User user = new DBUserReader().getUserById(Integer.parseInt(request.getParameter("id")));
-            out.print("<tr><td><h3>" + user.getName() + "</h3></td><td>");
-            request.setAttribute("id", user.getId());
-        %>
-        <button onclick="location.href='newPost.jsp?id=${id}'">загрузить пост</button></td><td>
-        <button onclick="location.href='signin.jsp'">Выйти</button></td></tr>
-    </table>
+    <%
+        User user = new DBUserReader().getUserById(Integer.parseInt(request.getParameter("id")));
+        out.print("<p>" + user.getName() + "</p>");
+        request.setAttribute("id", user.getId());
+    %>
+    <button onclick="location.href='signin.jsp'" style="float: right">Выйти</button>
+    <button onclick="location.href='newPost.jsp?id=${id}'" style="float: right">Загрузить пост</button>
+    <button onclick="location.href='posts?id=${id}'" style="float: right">Вернуться к ленте</button>
+
 </div>
-<div class="addPost">
-    <form action="newPost?id=${id}" method="post">
-        Картинка:
-        <input type="file" name="img" accept="image/*"/>
-        Текст поста:
-        <input type="text" name="comment"/>
-        <input type="submit" value="Upload" name="upload"/>
+<div class="post">
+    <p class="message">${mes}</p>
+    <table>
+    <form action="newPost?id=${id}" method="post" enctype="multipart/form-data">
+        <tr>
+            <td><textarea name="comment" cols="40" rows="10" placeholder="Напишите пост о ярких событиях в вашей жизни"></textarea></td>
+            <td style="width: 20%"><p style="float: left">Картинка:</p>
+                <input type="file" name="img" value="Загрузиь" style="float: top"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Опубликовать" class="submit"/></td>
+            <td></td>
+        </tr>
+
     </form>
 </div>
 </body>

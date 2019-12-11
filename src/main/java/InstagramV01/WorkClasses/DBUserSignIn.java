@@ -25,7 +25,7 @@ public class DBUserSignIn {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println("Всё херня, давай по-новой!");
+            System.out.println("");
         }
         return null;
     }

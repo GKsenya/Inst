@@ -2,10 +2,7 @@ package InstagramV01.WorkClasses;
 
 import InstagramV01.Interface.ResourceWriter;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
 
 public class DBWriter implements ResourceWriter {
@@ -30,7 +27,7 @@ public class DBWriter implements ResourceWriter {
                 this.userInDB = true;
             }
         } catch (Exception ex) {
-            System.out.println("Всё херня, давай по-новой!");
+            System.out.println("");
         } finally {
             try {
                 dbConnector.closeConnection();
@@ -40,6 +37,7 @@ public class DBWriter implements ResourceWriter {
         }
     }
 
+    @Override
     public boolean isUserInDB() {
         return userInDB;
     }
@@ -50,19 +48,15 @@ public class DBWriter implements ResourceWriter {
         Connection con = dbConnector.createConnection();
         User user = userPost.getUser();
         Post post = userPost.getPosts().get(0);
-        FileInputStream fis = null;
         try {
-            File image = new File("C:\\Users\\Gorks\\Inst\\src\\main\\java\\InstagramV01\\nsu.jpg");
-            fis = new FileInputStream(image);  // Осталось разобраться с этой сукой
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `Inst_post`(`user_id`, `img`, `comment`) VALUES (?,?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `Inst_post`(`user_id`, `imgPath`, `comment`) VALUES (?,?,?)");
             ps.setInt(1, user.getId());
-            ps.setBinaryStream(2, (InputStream) fis, (int) image.length());
+            ps.setString(2, post.getImg());
             ps.setString(3, post.getComment());
             ps.executeUpdate();
             ps.close();
-            fis.close();
         } catch (Exception ex) {
-            System.out.println("Всё херня, давай по-новой!");
+            System.out.println("");
         } finally {
             try {
                 dbConnector.closeConnection();

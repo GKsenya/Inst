@@ -8,5 +8,7 @@ import java.io.FileNotFoundException;
 public interface ResourceWriter {
     void saveNewUser(User user);
 
+    boolean isUserInDB();
+
     void saveNewPost(UserPost userPost) throws FileNotFoundException;
 }

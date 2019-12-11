@@ -13,33 +13,36 @@
 <html>
 <head>
     <title>Instagram V0.1</title>
-    <link rel="stylesheet" type="text/css" href="css/Inst.css">
-    <style type="text/css"></style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/Inst.css">
 </head>
 <body>
 <div>
-    <div>
-        <%
-            User user = (User) request.getAttribute("user");
-            out.print("<p>" + user.getName() + "</p>");
-            request.setAttribute("id", user.getId());
-        %>
-        <button onclick="location.href='newPost.jsp?id=${id}'">загрузить пост</button><br><br>
-        <button onclick="location.href='signin.jsp'">Выйти</button>
+    <div class="user">
+            <%
+                User user = (User) request.getAttribute("user");
+                out.print("<p>" + user.getName() + "</p>");
+                request.setAttribute("id", user.getId());
+            %>
+        <button onclick="location.href='signin.jsp'" style="float: right">Выйти</button>
+        <button onclick="location.href='newPost.jsp?id=${id}'" style="float: right">Загрузить пост</button>
+
     </div>
-    <table>
-        <%
-            for (UserPost userPost : (List<UserPost>) request.getAttribute("posts")) {
-                byte[] imageBytes = userPost.getPosts().get(0).getImg();
-                ImageIcon imageIcon = new ImageIcon(imageBytes);
-                Image image = imageIcon.getImage();
-                out.print("<tr><td>" + userPost.getUser().getName() + "     "
-                        + userPost.getPosts().get(0).getDate() + "</td><td></td></tr>");
-                out.println("<tr><td><img src ='" + image + "'></td><td>"
-                        + userPost.getPosts().get(0).getComment() + "</td></tr>");
-            }
-        %>
-    </table>
+    <div class="posts">
+            <%
+                for (UserPost userPost : (List<UserPost>) request.getAttribute("posts")) {
+                    out.print("<div class =\"userPost\"><table><tr><td class = \"userName\"><p>" + userPost.getUser().getName() + "</p></td><td class = \"userDate\">"
+                            + userPost.getPosts().get(0).getDate() + "</td></tr></table>");
+                    if(!userPost.getPosts().get(0).getImg().equalsIgnoreCase("")){
+                    out.println("<table><tr><td><img src ='" + userPost.getPosts().get(0).getImg() + "' class = \"pic\"/></td><td><div class = \"comm\">"
+                            + userPost.getPosts().get(0).getComment() + "</div></td></tr></table></div>");
+                    }else {
+                        out.println("<div class = \"comm1\">" + userPost.getPosts().get(0).getComment() + "</div></div>");
+                    }
+                }
+            %>
+
+    </div>
 </div>
 </body>
 </html>

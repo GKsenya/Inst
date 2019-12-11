@@ -1,31 +1,94 @@
+html, body * { box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
 html {
     background: url("back.jpg") fixed;
 }
 body{
+    background-color: rgba(250, 250, 250, 0.85);
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
+    margin: 2% auto 3%;
+    align-content: center;
+    border-radius: 15px;
+    padding-bottom: 5%;
 }
 .user{
-    background-color: palevioletred;
-    height: 10%;
-    border-radius: 30px;
-}
-.user h3{
-    size: 40px;
-    color: #ffffff;
-    font-weight: bolder;
-    margin-left: 50%;
-    margin-bottom: auto;
-    margin-top: auto;
+    width: 100%;
+    background-color: rgba(35,43,85,0.95);
+    margin-left: auto;
+    margin-right: auto;
+    height: 12%;
+    padding: 4% 10%;
+    border-radius: 15px 15px 0px 0px;
 }
 .user button{
-    border-radius: 30px;
+    border-radius: 15px;
     size: 20px;
     background-color: #ffffff;
-    color: maroon;
+    color: rgba(35,43,85,0.95);
     font-weight: bolder;
-    margin-bottom: 10px;
     margin-left: 10px;
+}
+.user p{
+    float: left;
+    margin-top: 0%;
+    font-weight: bolder;
+    font-size: large;
+    color: white;
+}
+.posts{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.post{
+    width: 90%;
+    margin: 30px auto 25px;
+}
+.post p{
+    font-weight: normal;
+    font-size: large;
+}
+.post textarea{
+    float: left;
+    border-radius: 7px;
+    padding: 2%;
+}
+.submit {
+    position: fixed;
+    border: rgba(35,43,85,0.95);
+    background-color: rgba(35,43,85,0.95);
+    border-radius: 30px;
+    color: white;
+}
+.userPost{
+    margin: 40px auto 30px;
+}
+.pic{
+    width: 250px;
+    border-radius: 7px;
+    float: left;
+}
+.comm{
+    width: 250px;
+    margin-left: 30px;
+    float: left;
+}
+.comm1{
+    width: 500px;
+    margin-left: 30px;
+    float: left;
+}
+.userName{
+    width: 50px;
+    font-size: 20px;
+}
+
+.userDate{
+    font-size: small;
+    font-weight: lighter;
+}
+.message{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    color: maroon;
 }

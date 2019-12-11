@@ -15,7 +15,6 @@ public class AllPostsServlet extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int id = Integer.parseInt(req.getParameter("id"));
-
         ResourceUserReader rur = new DBUserReader();
         req.setAttribute("user", rur.getUserById(id));
         req.setAttribute("posts", rur.readAllPosts());
