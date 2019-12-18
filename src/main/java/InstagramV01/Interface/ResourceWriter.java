@@ -11,4 +11,8 @@ public interface ResourceWriter {
     boolean isUserInDB();
 
     void saveNewPost(UserPost userPost) throws FileNotFoundException;
+
+    int saveLike(UserPost userPost);
+
+    void saveComment(UserPost userPost, String comment);
 }

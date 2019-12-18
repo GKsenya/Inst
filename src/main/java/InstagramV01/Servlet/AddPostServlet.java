@@ -15,9 +15,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import java.util.ArrayList;
@@ -51,21 +52,19 @@ public class AddPostServlet extends HttpServlet {
                         }
                         uploadedFile = new File(path + "/" + fileName);
                         item.write(uploadedFile);
+                        filePath = path + "/" + fileName;
                     } else{
                         comment = new String(item.get(), "UTF-8");
                     }
                 }
-                String path = String.valueOf(uploadedFile.getAbsolutePath());
-                filePath = path.substring(path.lastIndexOf("Inst")+5, path.length());
             } catch (Exception e) {
 
                 filePath = "";
             }
         }
 
-
-
-        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession httpSession = request.getSession(true);
+        int id = (Integer) httpSession.getAttribute("id");
 
         ResourceUserReader rur = new DBUserReader();
         User user = rur.getUserById(id);
@@ -76,14 +75,12 @@ public class AddPostServlet extends HttpServlet {
             List<Post> posts = new ArrayList<>();
             posts.add(post);
             UserPost up = new UserPost(user, posts);
-
             ResourceWriter rw = new DBWriter();
             rw.saveNewPost(up);
-
-            response.sendRedirect(request.getContextPath() + "/posts?id="+user.getId());
+            response.sendRedirect(request.getContextPath() + "/posts");
         } else{
             request.setAttribute("mes", "Вы не можете опубликовать пустой пост.\nДобавьте картинку или текст.");
-            String nextJSP = "newPost.jsp?id="+user.getId();
+            String nextJSP = "newPost.jsp";
             RequestDispatcher dispatcher = request.getRequestDispatcher(nextJSP);
             dispatcher.forward(request, response);
         }

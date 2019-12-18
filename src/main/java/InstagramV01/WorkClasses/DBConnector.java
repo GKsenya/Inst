@@ -23,8 +23,7 @@ public class DBConnector {
         return null;
     }
 
-    public void closeConnection
-            () throws SQLException {
+    public void closeConnection() throws SQLException {
             this.con.close();
     }
 
