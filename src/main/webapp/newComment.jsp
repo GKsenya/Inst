@@ -37,7 +37,7 @@
 
     </div>
     <div class="post">
-        <p class="message">${commentMes}</p>
+        <p class="commessage">${commentMes}</p>
         <div class="posts">
             <%
                 out.print("<div class =\"userPost\"><div class ='aboutUser'><p class = \"userName\">" + userComm.getName() + "</p><p class = \"userDate\">"
@@ -47,7 +47,7 @@
                     out.println("<hr style = 'width: 126%; margin-left:-13%;'><table><tr><td><img src ='" + post.getImg().substring(post.getImg().lastIndexOf("upload")) + "' class = \"pic\"/></td><td><div class = \"comm\">"
                             + post.getComment() + "</div></td></tr></table>");
                 } else {
-                    out.println("<div class = \"comm1\">" + post.getComment() + "</div>");
+                    out.println("<table><tr><td><div class = \"comm1\">" + post.getComment() + "</div></td></tr></table>");
                 }
                 out.print("</div><div style = 'width = 100%;'>");
                 if(post.getComments() != null){

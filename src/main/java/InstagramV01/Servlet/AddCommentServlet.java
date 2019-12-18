@@ -36,7 +36,7 @@ public class AddCommentServlet extends HttpServlet {
             dbWriter.saveComment(new UserPost(user, posts), req.getParameter("comment"));
             resp.sendRedirect(req.getContextPath() + "/posts");
         } else {
-            String nextJSP = "newComment.jsp";
+            String nextJSP = "newComment.jsp?postId=" + post.getId() + "&userId=" + user.getId();
             RequestDispatcher dispatcher = req.getRequestDispatcher(nextJSP);
             dispatcher.forward(req, resp);
         }
