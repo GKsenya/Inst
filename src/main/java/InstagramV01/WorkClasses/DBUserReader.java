@@ -90,6 +90,7 @@ public class DBUserReader implements ResourceUserReader {
         DBConnector dbConnector = new DBConnector();
         Connection con = dbConnector.createConnection();
         List<Integer> likes = new ArrayList<>();
+        List<User> friends = this.getFriends(id);
         User user;
         try {
             Statement stmt = con.createStatement();
@@ -100,11 +101,17 @@ public class DBUserReader implements ResourceUserReader {
             rs.close();
             ResultSet rs1 = stmt.executeQuery("SELECT * FROM `Inst_users` WHERE `id` = " + id);
             rs1.next();
-            user = new User(rs1.getString("user_login"), rs1.getString("user_name"), rs1.getInt("id"), likes);
+            user = new User(rs1.getString("user_login"), rs1.getString("user_name"), rs1.getInt("id"), likes, friends);
             rs1.close();
             stmt.close();
         }catch (Exception ex){
             user = null;
+        } finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return user;
@@ -130,6 +137,12 @@ public class DBUserReader implements ResourceUserReader {
             stmt.close();
         } catch (Exception ex){
             post = null;
+        } finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return post;
     }
@@ -161,7 +174,7 @@ public class DBUserReader implements ResourceUserReader {
         Map<Integer,List<Comment>> comments = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs1 = stmt.executeQuery("SELECT `Inst_users`.`id` as ui, `Inst_users`.`user_name` as un, `Inst_users`.`user_login` as ul, `comments`.`id`, `comments`.`user_id`, `comments`.`post_id`, `comments`.`comment`, `comments`.`date`FROM `comments` INNER JOIN `Inst_users` ON `Inst_users`.`id` = (SELECT `Inst_users`.`id` FROM `Inst_users` WHERE  `id` = `comments`.`user_id`)");
+            ResultSet rs1 = stmt.executeQuery("SELECT `Inst_users`.`id` as ui, `Inst_users`.`user_name` as un, `Inst_users`.`user_login` as ul, `comments`.`id`, `comments`.`user_id`, `comments`.`post_id`, `comments`.`comment`, `comments`.`date`FROM `comments` INNER JOIN `Inst_users` ON `Inst_users`.`id` = (SELECT `Inst_users`.`id` FROM `Inst_users` WHERE  `id` = `comments`.`user_id`) ORDER BY `comments`.`id` DESC ");
             while (rs1.next()) {
                 User user = new User(rs1.getString("ul"), rs1.getString("un"), rs1.getInt("ui"));
                 Comment comment = new Comment(user, rs1.getString("date").substring(0, rs1.getString("date").lastIndexOf(" ")), rs1.getString("comment"), rs1.getInt("post_id"));
@@ -183,6 +196,51 @@ public class DBUserReader implements ResourceUserReader {
         return comments;
     }
 
+    public List<User> getFriends(int id){
+        List<User> friends = new ArrayList<>();
+        DBConnector dbConnector = new DBConnector();
+        Connection con = dbConnector.createConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs1 = stmt.executeQuery("SELECT `Inst_users`.`id` as ui, `Inst_users`.`user_name` as un, `Inst_users`.`user_login` as ul, `inst_friends`.`date` as d FROM `inst_friends` INNER JOIN `Inst_users` ON `Inst_users`.`id`= ( SELECT `id` FROM `Inst_users` WHERE `id`=`inst_friends`.`friend_id`)where `user_id` =" + id);
+            while(rs1.next())
+                friends.add(new User(rs1.getString("ul"), rs1.getString("un"), rs1.getInt("ui"), rs1.getString("d")));
+            rs1.close();
+            stmt.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return friends;
+    }
+
+    public List<User> myFollowers(int id){
+        List<User> followers = new ArrayList<>();
+        DBConnector dbConnector = new DBConnector();
+        Connection con = dbConnector.createConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs1 = stmt.executeQuery("SELECT `Inst_users`.`id` as ui, `Inst_users`.`user_name` as un, `Inst_users`.`user_login` as ul, `inst_friends`.`date` as d FROM `inst_friends` INNER JOIN `Inst_users` ON `Inst_users`.`id`= ( SELECT `id` FROM `Inst_users` WHERE `id`=`inst_friends`.`user_id`)where `friend_id` =" + id);
+            while(rs1.next())
+                followers.add(new User(rs1.getString("ul"), rs1.getString("un"), rs1.getInt("ui"), rs1.getString("d")));
+            rs1.close();
+            stmt.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return followers;
+    }
 
     private void fileSaving(ResultSet rs, File image) throws IOException, SQLException {
         if (!image.exists()){

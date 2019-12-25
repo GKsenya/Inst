@@ -24,6 +24,8 @@
         %>
         <button onclick="location.href='signin.jsp'" style="float: right">Выйти</button>
         <button onclick="location.href='newPost.jsp'" style="float: right">Загрузить пост</button>
+        <button onclick="location.href='myFollowers'" style="float: right">Подписчики</button>
+        <button onclick="location.href='allFriend'" style="float: right">Подписки</button>
         <button onclick="location.href='posts'" style="float: right">Вернуться к ленте</button>
 
     </div>

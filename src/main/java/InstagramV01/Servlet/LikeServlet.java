@@ -28,7 +28,6 @@ public class LikeServlet extends HttpServlet {
         ResourceWriter dbWriter = new DBWriter();
         dbWriter.saveLike(new UserPost(user, posts));
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("posts");
-        requestDispatcher.forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/posts");
     }
 }

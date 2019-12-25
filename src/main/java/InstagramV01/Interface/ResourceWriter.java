@@ -15,4 +15,6 @@ public interface ResourceWriter {
     int saveLike(UserPost userPost);
 
     void saveComment(UserPost userPost, String comment);
+
+    void saveFriend(int id, int friendId);
 }

@@ -60,6 +60,46 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>newFriend</servlet-name>
+    <servlet-class>InstagramV01.Servlet.FriendsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>delFriend</servlet-name>
+    <url-pattern>/delFriend</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>delFriend</servlet-name>
+    <servlet-class>InstagramV01.Servlet.FriendsChangingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>newFriend</servlet-name>
+    <url-pattern>/newFriend</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>allFriend</servlet-name>
+    <url-pattern>/allFriend</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>allFriend</servlet-name>
+    <servlet-class>InstagramV01.Servlet.AllFriendsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>myFollowers</servlet-name>
+    <url-pattern>/myFollowers</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>myFollowers</servlet-name>
+    <servlet-class>InstagramV01.Servlet.AllMyFollowersServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>newComment</servlet-name>
     <servlet-class>InstagramV01.Servlet.AddCommentServlet</servlet-class>
   </servlet>

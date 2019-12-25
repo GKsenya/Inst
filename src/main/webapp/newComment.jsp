@@ -33,6 +33,8 @@
         %>
         <button onclick="location.href='signin.jsp'" style="float: right">Выйти</button>
         <button onclick="location.href='newPost.jsp'" style="float: right">Загрузить пост</button>
+        <button onclick="location.href='myFollowers'" style="float: right">Подписчики</button>
+        <button onclick="location.href='allFriend'" style="float: right">Подписки</button>
         <button onclick="location.href='posts'" style="float: right">Вернуться к ленте</button>
 
     </div>
@@ -53,7 +55,7 @@
                 if(post.getComments() != null){
                     out.println("<div class =\"userPost\"><hr style = 'width: 126%; margin-left:-13%; margin-top:40px;'><table>");
                     for(Comment comment:post.getComments()){
-                        out.println("<tr><td class = \"comments\"><p>" + comment.getUser().getName() + "</p></td><td class = \"userDate\">"
+                        out.println("<tr><td class = \"comments1\"><p>" + comment.getUser().getName() + "</p></td><td class = \"userDate\">"
                                 + comment.getDate() + "</td></tr><tr><td></td><td>" + comment.getComment() + "</td></tr>");
                     }
                     out.println("</table></div>");

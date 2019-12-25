@@ -140,7 +140,35 @@ public class DBWriter implements ResourceWriter {
             stmt.execute(request);
             stmt.close();
         } catch (Exception ex) {
-            System.out.println("Сууууууууууууукааааааааааааа");
+            System.out.println("Ошибочка");
+        } finally {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    @Override
+    public void saveFriend(int id, int friendId){
+        DBConnector dbConnector = new DBConnector();
+        Connection con = dbConnector.createConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `inst_friends` WHERE `user_id`=" + id
+                    + " AND `friend_id`=" + friendId);
+            if (!rs.next()) {
+            String request = "INSERT INTO `inst_friends`(`user_id`, `friend_id`) VALUES ("
+                    + id
+                    + ", " + friendId +")";
+            stmt.execute(request);
+            } else {
+                String request = "DELETE FROM `inst_friends` WHERE `friend_id` = " + friendId +" and `user_id`=" + id;
+                stmt.execute(request);
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            System.out.println("Ошибочка");
         } finally {
             try {
                 dbConnector.closeConnection();

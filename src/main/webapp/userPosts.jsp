@@ -27,12 +27,14 @@
             %>
             <button onclick="location.href='signin.jsp'" style="float: right">Выйти</button>
             <button onclick="location.href='newPost.jsp'" style="float: right">Загрузить пост</button>
+            <button onclick="location.href='myFollowers'" style="float: right">Подписчики</button>
+            <button onclick="location.href='allFriend'" style="float: right">Подписки</button>
         </div>
     </div>
         <%
             for (UserPost userPost : (List<UserPost>) request.getAttribute("posts")) {
                 out.print("<div class=\"posts\"><div class =\"userPost\"><div class ='aboutUser'><p class = \"userName\">" + userPost.getUser().getName() + "</p><p class = \"userDate\">"
-                        + userPost.getPosts().get(0).getDate() + "</p></div>");
+                            + userPost.getPosts().get(0).getDate() + "</p></div>");
                 Post post = userPost.getPosts().get(0);
                 out.print("<div style = 'width: 100%; margin-top: 40px;'>");
                 if (!post.getImg().equalsIgnoreCase("")) {
@@ -41,7 +43,16 @@
                 } else {
                     out.println("<hr style = 'width: 126%; margin-left:-13%;'><table><tr><td><div class = \"comm1\">" + post.getComment() + "</div></td></tr></table>");
                 }
-                out.print("</div><div style = 'width = 100%;'>");
+                if (user.getId() != userPost.getUser().getId()) {
+                    if(!user.getFriendsId().contains(userPost.getUser().getId())) {
+                        out.print("</div><div style = 'width = 100%;'><button onclick=\"location.href='newFriend?userId=" + userPost.getUser().getId() + "'\" class=\"friends1\">Подписаться</button>");
+                    }else{
+                        out.print("</div><div style = 'width = 100%;'><button onclick=\"location.href='newFriend?userId=" + userPost.getUser().getId() + "'\" class=\"friends1\">Отписаться</button>");
+
+                    }
+                } else {
+                    out.print("</div><div style = 'width = 100%;'>");
+                }
                 if(user.getLikes().contains(post.getId())) {
                     out.println("<table style=\"float: right\"><tr><td><button onclick=\"location.href='newComment.jsp?postId=" + post.getId() + "&userId=" + userPost.getUser().getId() + "'\" class='commenting'></button></td><td><button onclick=\"location.href='like?postId=" + post.getId()
                             + "'\" class='like'></button></td><td>" + post.getLikes() + "</td></tr></table>");
@@ -52,15 +63,14 @@
                 if(post.getComments() != null){
                     out.println("<hr style = 'width: 126%; margin-left:-13%; margin-top:40px;'><div class =\"userPost\"><table>");
                     for(Comment comment:post.getComments()){
-                        out.println("<tr><td class = \"comments\"><p>" + comment.getUser().getName() + "</p></td><td class = \"userDate\">"
-                                + comment.getDate() + "</td></tr><tr><td></td><td>" + comment.getComment() + "</td></tr>");
+                        out.println("<tr><td class = \"comments1\"><p>" + comment.getUser().getName() + "</p></td><td class = \"userDate\"><p>"
+                                + comment.getDate() + "</p></td></tr><tr><td></td><td>" + comment.getComment() + "</td></tr>");
                     }
                     out.println("</table></div>");
                 }
                 out.println("</div></div></div>");
             }
         %>
-
 
 </div>
 </body>
